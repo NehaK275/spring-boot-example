@@ -1,6 +1,6 @@
 pipeline{
     agent{
-        label "master"
+        label "slave"
     }
     tools { 
         maven 'maven' 
@@ -9,9 +9,15 @@ pipeline{
     stages{
         stage("building"){
             steps{
-                sh "mvn clean package"
+                sh "mvn compile"
             }
         }
+	    stage('Testing'){
+		    steps {
+			    echo 'Testing the application...'
+			    sh "mvn clean test"
+		    }
+	    }
 
     }
     post{
