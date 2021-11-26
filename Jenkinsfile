@@ -2,10 +2,7 @@ pipeline {
     agent{
             label "master"
         }
-        tools {
-            maven 'maven'
-            // jdk 'jdk8'
-        }
+        
     stages {
 
         stage('Testing') {
