@@ -1,30 +1,25 @@
 pipeline{
-    agent any
-	
+    agent{
+        label "master"
+    }
     tools { 
         maven 'maven' 
-        jdk "jdk 11"
+        jdk 'jdk 11'
     }
     stages{
         stage("building"){
             steps{
-                sh "mvn compile"
+                sh "mvn clean package"
             }
         }
-	    stage('Testing'){
-		    steps {
-			    echo 'Testing the application...'
-			    sh "mvn clean test"
-		    }
-	    }
 
     }
     post{
-      // always{
-        //mail to: 'neha.singh@knoldus.com',
-	//		subject: "Pipeline: ${currentBuild.fullDisplayName} is ${currentBuild.currentResult}",
-		//body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
-      //  }
+        always{
+            mail to: 'gayatri.singh@knoldus.com',
+			subject: "Pipeline: ${currentBuild.fullDisplayName} is ${currentBuild.currentResult}",
+			body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
+        }
         success{
             echo "========pipeline executed successfully ========"
         }
