@@ -1,13 +1,18 @@
 
 pipeline {
     agent{
-            label "master"
+            label "slave2"
         }
         tools {
             maven 'maven'
-            // jdk 'jdk8'
+            jdk 'jdk11'
         }
     stages {
+        stage("building"){
+            steps{
+                sh "mvn compile"
+            }
+        }
 
         stage('Testing') {
             steps {
@@ -25,3 +30,4 @@ pipeline {
         }
     }
 }
+
