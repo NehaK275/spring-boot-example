@@ -1,24 +1,22 @@
-pipeline{
-    agent any
-	
+
+	pipeline{
+    agent{
+        label "master"
+    }
     tools { 
         maven 'maven' 
-        jdk "jdk 11"
+        jdk 'jdk 11'
     }
     stages{
         stage("building"){
             steps{
-                sh "mvn compile"
+                sh "mvn clean package"
             }
         }
-	    stage('Testing'){
-		    steps {
-			    echo 'Testing the application...'
-			    sh "mvn clean test"
-		    }
-	    }
 
     }
+	
+	
     post{
       // always{
         //mail to: 'neha.singh@knoldus.com',
@@ -33,3 +31,7 @@ pipeline{
         }
     }
 }
+
+
+
+
